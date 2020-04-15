@@ -3,6 +3,7 @@
 const cam = document.getElementById("cam")
 
 
+
 const startVideo = () => {
     navigator.mediaDevices.enumerateDevices()
         .then(devices => { 
@@ -24,6 +25,19 @@ const startVideo = () => {
 }
 //navigator.getUserMedia({video:true})
 
+
+const loadLabels = () => {
+    const labels = ['Gabriel Santos']
+    labels.map(async label => {
+        for(let i = 1 ; i < 5; i++) {
+            const img = await faceapi.fetchImage(`/assets/lib/face-api/labels/${label}/${i}.jpg`)
+            const detections = await faceapi.detectSingleFace(img)
+                .withFaceLandmarks()
+                .widthFaceDescriptor()
+        }        
+    })
+}
+
 Promise.all([    
     faceapi.nets.tinyFaceDetector.loadFromUri('/assets/lib/face-api/models'), // detectar rostos no video 
     faceapi.nets.faceLandmark68Net.loadFromUri('/assets/lib/face-api/models'), // desenha traços no rosto 
@@ -41,6 +55,7 @@ cam.addEventListener('play', async () => {
         width: cam.width,
         height: cam.height
     }
+    const labels = await loadLabels()
     faceapi.matchDimensions(canvas, canvasSize)
     document.body.appendChild(canvas)
     setInterval(async () => {
