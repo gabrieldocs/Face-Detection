@@ -1,4 +1,4 @@
-
+// baseado no tutorial https://www.youtube.com/watch?v=aGecIY04ymQ 
 //retorna uma promisse com uma lista de dispositivos 
 const cam = document.getElementById("cam")
 
@@ -28,14 +28,21 @@ const startVideo = () => {
 
 const loadLabels = () => {
     const labels = ['Gabriel Santos']
-    labels.map(async label => {
+    return Promise.all(labels.map(async label => {
+        const descriptions = [] // array com descritores nas imagens 
         for(let i = 1 ; i < 5; i++) {
             const img = await faceapi.fetchImage(`/assets/lib/face-api/labels/${label}/${i}.jpg`)
-            const detections = await faceapi.detectSingleFace(img)
+            
+            // similar a detecção inferior, sem reconhecimento
+            // detectar um rosto único e comparar com o video 
+            const detections = await faceapi
+                .detectSingleFace(img)
                 .withFaceLandmarks()
-                .widthFaceDescriptor()
-        }        
-    })
+                .withFaceDescriptor()
+            descriptions.push(detections.descriptor)
+        }   
+        return new faceapi.LabeledFaceDescriptors(label, descriptions)
+    }))
 }
 
 Promise.all([    
@@ -56,8 +63,11 @@ cam.addEventListener('play', async () => {
         height: cam.height
     }
     const labels = await loadLabels()
+
     faceapi.matchDimensions(canvas, canvasSize)
+    
     document.body.appendChild(canvas)
+    
     setInterval(async () => {
         const detections = await faceapi.detectAllFaces(cam, 
             new faceapi.TinyFaceDetectorOptions() //detecta todos os rostos do video 
@@ -65,9 +75,20 @@ cam.addEventListener('play', async () => {
         .withFaceLandmarks()
         .withFaceExpressions()
         .withAgeAndGender()
+        .withFaceDescriptors()
 
         const resizedDetections = faceapi.resizeResults(detections, canvasSize)
+
+        //taxa de acerto esperada de 60%
+        const faceMatcher = new faceapi.FaceMatcher(labels, 0.6)
+
+        const results = resizedDetections.map(d =>        
+            faceMatcher.findBestMatch(d.descriptor)
+       )
+
+        //get size 
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
+        
         faceapi.draw.drawDetections(canvas, resizedDetections)
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
         faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
@@ -80,7 +101,13 @@ cam.addEventListener('play', async () => {
 
             ], detection.detection.box.topRight).draw(canvas)
         })
-
+        results.forEach((result, index) => {
+            const box = resizedDetections[index].detection.box
+            const {label, distance} = result 
+            new faceapi.draw.DrawTextField([
+                `${label} (${parseInt(distance * 100)})`
+            ], box.bottomRight).draw(canvas)
+        })
         console.log(detections)    
     }, 100)
 })
