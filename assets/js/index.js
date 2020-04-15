@@ -46,12 +46,12 @@ const loadLabels = () => {
 }
 
 Promise.all([    
-    faceapi.nets.tinyFaceDetector.loadFromUri('/assets/lib/face-api/models'), // detectar rostos no video 
-    faceapi.nets.faceLandmark68Net.loadFromUri('/assets/lib/face-api/models'), // desenha traços no rosto 
-    faceapi.nets.faceRecognitionNet.loadFromUri('/assets/lib/face-api/models'), // reconhecimento
-    faceapi.nets.faceExpressionNet.loadFromUri('/assets/lib/face-api/models'), // emoji 
-    faceapi.nets.ageGenderNet.loadFromUri('/assets/lib/face-api/models'), // adivinhar idade 
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/assets/lib/face-api/models') // 
+    faceapi.nets.tinyFaceDetector.loadFromUri('/caretas/assets/lib/face-api/models'), // detectar rostos no video 
+    faceapi.nets.faceLandmark68Net.loadFromUri('/caretas/assets/lib/face-api/models'), // desenha traços no rosto 
+    faceapi.nets.faceRecognitionNet.loadFromUri('/caretas/assets/lib/face-api/models'), // reconhecimento
+    faceapi.nets.faceExpressionNet.loadFromUri('/caretas/assets/lib/face-api/models'), // emoji 
+    faceapi.nets.ageGenderNet.loadFromUri('/caretas/assets/lib/face-api/models'), // adivinhar idade 
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/caretas/assets/lib/face-api/models') // 
 
 ]).then(startVideo)
 
