@@ -47,10 +47,25 @@ cam.addEventListener('play', async () => {
         const detections = await faceapi.detectAllFaces(cam, 
             new faceapi.TinyFaceDetectorOptions() //detecta todos os rostos do video 
         )
+        .withFaceLandmarks()
+        .withFaceExpressions()
+        .withAgeAndGender()
 
         const resizedDetections = faceapi.resizeResults(detections, canvasSize)
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
         faceapi.draw.drawDetections(canvas, resizedDetections)
+        faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
+        faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
+
+        resizedDetections.forEach(detection => {
+            const { age, gender, genderProbability } = detection
+            new faceapi.draw.DrawTextField([
+                `${parseInt(age, 10)} years`,
+                `${gender} gender (${parseInt(genderProbability * 100, 10)})`,
+
+            ], detection.detection.box.topRight).draw(canvas)
+        })
+
         console.log(detections)    
     }, 100)
 })
