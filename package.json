@@ -20,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/gabrieldocs/Face-Detection/issues"
   },
-  "homepage": "https://github.com/gabrieldocs/Face-Detection#readme"
+  "homepage": "https://github.com/gabrieldocs/Face-Detection#readme",
+  "dependencies": {
+    "live-server": "^1.2.1"
+  }
 }
