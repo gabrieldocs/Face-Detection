@@ -1,8 +1,8 @@
 // baseado no tutorial https://www.youtube.com/watch?v=aGecIY04ymQ 
 //retorna uma promisse com uma lista de dispositivos 
 const cam = document.getElementById("cam")
-
-
+const teste = document.getElementById("teste")
+const button = document.getElementById("sup")
 
 const startVideo = () => {
     navigator.mediaDevices.enumerateDevices()
@@ -46,12 +46,12 @@ const loadLabels = () => {
 }
 
 Promise.all([    
-    faceapi.nets.tinyFaceDetector.loadFromUri('/caretas/assets/lib/face-api/models'), // detectar rostos no video 
-    faceapi.nets.faceLandmark68Net.loadFromUri('/caretas/assets/lib/face-api/models'), // desenha traços no rosto 
-    faceapi.nets.faceRecognitionNet.loadFromUri('/caretas/assets/lib/face-api/models'), // reconhecimento
-    faceapi.nets.faceExpressionNet.loadFromUri('/caretas/assets/lib/face-api/models'), // emoji 
-    faceapi.nets.ageGenderNet.loadFromUri('/caretas/assets/lib/face-api/models'), // adivinhar idade 
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/caretas/assets/lib/face-api/models') // 
+    faceapi.nets.tinyFaceDetector.loadFromUri('/assets/lib/face-api/models'), // detectar rostos no video 
+    faceapi.nets.faceLandmark68Net.loadFromUri('/assets/lib/face-api/models'), // desenha traços no rosto 
+    faceapi.nets.faceRecognitionNet.loadFromUri('/assets/lib/face-api/models'), // reconhecimento
+    faceapi.nets.faceExpressionNet.loadFromUri('/assets/lib/face-api/models'), // emoji 
+    faceapi.nets.ageGenderNet.loadFromUri('/assets/lib/face-api/models'), // adivinhar idade 
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/assets/lib/face-api/models') // 
 
 ]).then(startVideo)
 
@@ -80,7 +80,7 @@ cam.addEventListener('play', async () => {
         const resizedDetections = faceapi.resizeResults(detections, canvasSize)
 
         //taxa de acerto esperada de 60%
-        const faceMatcher = new faceapi.FaceMatcher(labels, 0.6)
+        const faceMatcher = new faceapi.FaceMatcher(labels, 0.7)
 
         const results = resizedDetections.map(d =>        
             faceMatcher.findBestMatch(d.descriptor)
@@ -107,8 +107,15 @@ cam.addEventListener('play', async () => {
             new faceapi.draw.DrawTextField([
                 `${label} (${parseInt(distance * 100)})`
             ], box.bottomRight).draw(canvas)
+
+            if(parseInt(distance * 100) > 40 ) { 
+                //console.log(`Hey, it ${label}! Whaaaat!`)
+                //button.classList.add('btn-success')
+                button.innerHTML = '<a class = "btn btn-primary">Avançar</a>'
+                teste.innerHTML = `Hey, it ${label}! Whaaaat!`
+            }
         })
-        console.log(detections)    
+        //console.log(detections)    
     }, 100)
 })
 
