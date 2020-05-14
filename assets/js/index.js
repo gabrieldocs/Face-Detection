@@ -1,7 +1,7 @@
 // baseado no tutorial https://www.youtube.com/watch?v=aGecIY04ymQ 
 //retorna uma promisse com uma lista de dispositivos 
 const cam = document.getElementById("cam")
-const teste = document.getElementById("teste")
+const teste = document.getElementById("name")
 const button = document.getElementById("sup")
 
 const startVideo = () => {
@@ -25,9 +25,11 @@ const startVideo = () => {
 }
 //navigator.getUserMedia({video:true})
 
+// os rótulos são carregados a partir da estrutura de pastas
+// neste momento só há duas pastas no diretório do projeto 
 
 const loadLabels = () => {
-    const labels = ['Gabriel Santos']
+    const labels = ['Lucas Gabriel', 'Augusto Coelho']
     return Promise.all(labels.map(async label => {
         const descriptions = [] // array com descritores nas imagens 
         for(let i = 1 ; i < 5; i++) {
@@ -44,6 +46,8 @@ const loadLabels = () => {
         return new faceapi.LabeledFaceDescriptors(label, descriptions)
     }))
 }
+
+// Carrega os models da face-api e em seguida inicia o video 
 
 Promise.all([    
     faceapi.nets.tinyFaceDetector.loadFromUri('/assets/lib/face-api/models'), // detectar rostos no video 
@@ -89,7 +93,7 @@ cam.addEventListener('play', async () => {
         //get size 
         canvas.getContext('2d').clearRect(0, 0, canvas.width, canvas.height)
         
-        faceapi.draw.drawDetections(canvas, resizedDetections)
+        //faceapi.draw.drawDetections(canvas, resizedDetections)
         faceapi.draw.drawFaceLandmarks(canvas, resizedDetections)
         faceapi.draw.drawFaceExpressions(canvas, resizedDetections)
 
@@ -111,8 +115,11 @@ cam.addEventListener('play', async () => {
             if(parseInt(distance * 100) > 40 ) { 
                 //console.log(`Hey, it ${label}! Whaaaat!`)
                 //button.classList.add('btn-success')
-                button.innerHTML = '<a class = "btn btn-primary">Avançar</a>'
-                teste.innerHTML = `Hey, it ${label}! Whaaaat!`
+                //button.innerHTML = '<a class = "btn btn-lg text-white btn-primary">Avançar </a>'
+                teste.innerHTML = `Olá, ${label}! 😊 `
+                
+            } else {
+                button.style.display = 'none'                
             }
         })
         //console.log(detections)    
