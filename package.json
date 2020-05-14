@@ -4,7 +4,7 @@
   "description": "Some face recognition with tensorflow and FaceAPI",
   "main": "main.js",
   "scripts": {
-    "test": "hurry"
+    "hurry": "nodemon app.js"
   },
   "repository": {
     "type": "git",
@@ -22,7 +22,13 @@
   },
   "homepage": "https://github.com/gabrieldocs/Face-Detection#readme",
   "dependencies": {
+    "bcrypt": "^4.0.1",
+    "ejs": "^3.1.2",
     "express": "^4.17.1",
-    "live-server": "^1.2.1"
+    "express-flash": "0.0.2",
+    "express-sessions": "^1.0.6",
+    "live-server": "^1.2.1",
+    "passport": "^0.4.1",
+    "passport-local": "^1.0.0"
   }
 }
