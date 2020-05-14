@@ -2,8 +2,7 @@ body {
     margin: 0 auto;
     width: 80vw;
     
-
-    /* background-image: linear-gradient(purple, rgb(194, 44, 129)); */
+    /*background-image: linear-gradient(purple, rgb(194, 44, 129));*/
     background-color: #fff;
 
     /* display: flex;
@@ -23,6 +22,19 @@ body {
         'aside main main main'
         'footer footer footer footer'
     ;
+}
+
+@media screen and(max-width: 759px){
+    body{
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-areas: 
+        'section section section section'
+        'main main main main'
+        'aside aside aside aside'
+        'footer footer footer footer'
+    ;   
+    }
 }
 
 nav {
@@ -201,6 +213,11 @@ button {
     cursor: pointer;
 }
 
+button:disabled,
+.disabled{
+    background-color: #dedede;
+}
+
 video { 
     border-radius: 20px;
     overflow: hidden;
@@ -209,3 +226,5 @@ video {
 /* FONTS AND STUFF */
 h1, h2, h3, h4 { font-family: 'Alata', sans-serif; }
 p, a, b, ul, li, small, button { font-family: 'Open Sans', sans-serif; }
+
+

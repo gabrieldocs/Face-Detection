@@ -162,6 +162,9 @@ start.addEventListener('click', (e)=>{
     header.style.display = 'none'
     section.style.display = 'none'
     countdown()
+    start.disabled = "true"
+    start.classList.add('disabled')
+
 })
 
 /*
