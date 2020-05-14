@@ -155,12 +155,12 @@ footer{
     grid-template-rows: minmax(100px, auto);
 
     margin-bottom: 24px;
-    background-color: #333;
-    color: #fff;
+    background-color: #fff;
+    color: purple;
     
     grid-template-areas:  
         'mapa mapa mapa mapa'
-        'about contact link help'
+        'about help  contact  link '
         'dir dir dir dir'
     ;
 
