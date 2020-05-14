@@ -33,7 +33,7 @@ const loadLabels = () => {
     return Promise.all(labels.map(async label => {
         const descriptions = [] // array com descritores nas imagens 
         for(let i = 1 ; i < 5; i++) {
-            const img = await faceapi.fetchImage(`/assets/lib/face-api/labels/${label}/${i}.jpg`)
+            const img = await faceapi.fetchImage(`/lib/face-api/labels/${label}/${i}.jpg`)
             
             // similar a detecção inferior, sem reconhecimento
             // detectar um rosto único e comparar com o video 
@@ -50,12 +50,12 @@ const loadLabels = () => {
 // Carrega os models da face-api e em seguida inicia o video 
 
 Promise.all([    
-    faceapi.nets.tinyFaceDetector.loadFromUri('/assets/lib/face-api/models'), // detectar rostos no video 
-    faceapi.nets.faceLandmark68Net.loadFromUri('/assets/lib/face-api/models'), // desenha traços no rosto 
-    faceapi.nets.faceRecognitionNet.loadFromUri('/assets/lib/face-api/models'), // reconhecimento
-    faceapi.nets.faceExpressionNet.loadFromUri('/assets/lib/face-api/models'), // emoji 
-    faceapi.nets.ageGenderNet.loadFromUri('/assets/lib/face-api/models'), // adivinhar idade 
-    faceapi.nets.ssdMobilenetv1.loadFromUri('/assets/lib/face-api/models') // 
+    faceapi.nets.tinyFaceDetector.loadFromUri('/lib/face-api/models'), // detectar rostos no video 
+    faceapi.nets.faceLandmark68Net.loadFromUri('/lib/face-api/models'), // desenha traços no rosto 
+    faceapi.nets.faceRecognitionNet.loadFromUri('/lib/face-api/models'), // reconhecimento
+    faceapi.nets.faceExpressionNet.loadFromUri('/lib/face-api/models'), // emoji 
+    faceapi.nets.ageGenderNet.loadFromUri('/lib/face-api/models'), // adivinhar idade 
+    faceapi.nets.ssdMobilenetv1.loadFromUri('/lib/face-api/models') // 
 
 ]).then(startVideo)
 
@@ -66,8 +66,7 @@ cam.addEventListener('play', async () => {
         width: cam.width,
         height: cam.height
     }
-    const labels = await loadLabels()
-
+    const labels = await loadLabels()    
     faceapi.matchDimensions(canvas, canvasSize)
     
     document.body.appendChild(canvas)
@@ -116,13 +115,20 @@ cam.addEventListener('play', async () => {
                 //console.log(`Hey, it ${label}! Whaaaat!`)
                 //button.classList.add('btn-success')
                 //button.innerHTML = '<a class = "btn btn-lg text-white btn-primary">Avançar </a>'
-                teste.innerHTML = `Olá, ${label}! 😊 `
+                //teste.innerHTML = `Olá, ${label}! 😊 `
+                console.log(`Olá, ${label}! 😊 `)
                 
             } else {
-                button.style.display = 'none'                
+                console.log('Failed to recognize this person')
             }
         })
         //console.log(detections)    
     }, 100)
 })
+
+
+
+// get positioned elements 
+
+
 

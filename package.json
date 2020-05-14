@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/gabrieldocs/Face-Detection#readme",
   "dependencies": {
+    "express": "^4.17.1",
     "live-server": "^1.2.1"
   }
 }
