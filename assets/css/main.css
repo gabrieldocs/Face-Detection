@@ -154,6 +154,7 @@ footer{
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: minmax(100px, auto);
 
+    margin-bottom: 24px;
     background-color: #333;
     color: #fff;
     

@@ -155,8 +155,12 @@ function countdown(){
     }
 }
 
+const section = document.getElementById('section')
+const header = document.getElementById('header')
 start.addEventListener('click', (e)=>{
     e.preventDefault()
+    header.style.display = 'none'
+    section.style.display = 'none'
     countdown()
 })
 
