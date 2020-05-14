@@ -1,8 +1,9 @@
 // baseado no tutorial https://www.youtube.com/watch?v=aGecIY04ymQ 
 //retorna uma promisse com uma lista de dispositivos 
 const cam = document.getElementById("cam")
-const teste = document.getElementById("name")
+const teste = document.getElementById("candidate")
 const button = document.getElementById("sup")
+
 
 const startVideo = () => {
     navigator.mediaDevices.enumerateDevices()
@@ -115,7 +116,7 @@ cam.addEventListener('play', async () => {
                 //console.log(`Hey, it ${label}! Whaaaat!`)
                 //button.classList.add('btn-success')
                 //button.innerHTML = '<a class = "btn btn-lg text-white btn-primary">Avançar </a>'
-                //teste.innerHTML = `Olá, ${label}! 😊 `
+                candidate.innerHTML = `Olá, ${label}! 😊 `
                 console.log(`Olá, ${label}! 😊 `)
                 
             } else {
@@ -130,5 +131,48 @@ cam.addEventListener('play', async () => {
 
 // get positioned elements 
 
+const start = document.getElementById('start')
+const timer = document.getElementById('timer')
 
+const startMin = 15 
+let time = startMin * 60 
 
+function countdown(){
+    setInterval(updateCountdown, 1000)
+    function updateCountdown(){
+        const min = Math.floor(time / 60)
+        let seconds  = time % 60 
+    
+        timer.innerHTML = `${min} : ${seconds}`
+        if(time <= 0) {
+            // Adicionar custom event aqui 
+            alert('Encerrando...') 
+            clearInterval(time = 0)
+        } else {
+            time--;
+        }
+        
+    }
+}
+
+start.addEventListener('click', (e)=>{
+    e.preventDefault()
+    countdown()
+})
+
+/*
+let timeLeft = 9000
+function countdown(){
+    setInterval(function(){
+        if(timeLeft <=0){
+            clearInterval(timeLeft = 0)    
+        }
+        timer.innerHTML = timeLeft
+        timeLeft -=1
+    }, 1000)
+}
+start.addEventListener('click', (e)=>{
+    e.preventDefault()
+    countdown()
+})
+*/

@@ -3,7 +3,8 @@ body {
     width: 80vw;
     
 
-    background-image: linear-gradient(purple, rgb(194, 44, 129));
+    /* background-image: linear-gradient(purple, rgb(194, 44, 129)); */
+    background-color: #fff;
 
     /* display: flex;
     flex-direction: column;
@@ -15,6 +16,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: minmax(100px, auto);
     grid-template-areas: 
+        'nav nav nav nav'
         'header header header header'
         'section section section section'
         'aside main main main'
@@ -23,11 +25,54 @@ body {
     ;
 }
 
+nav {
+    grid-area: nav;
+    border-radius: none !important;
+
+    display: flex;
+    justify-content: space-around;
+
+    border-radius: 0 !important;
+    border-bottom: solid 1px #dcdcdc;
+    background-color: transparent !important;
+}
+
+.present {
+    border-left: solid 3px purple;
+    padding: 0 0 0 24px;
+    background-color: rgb(255, 255, 240);
+}
+nav ul {
+    display: inline-flex;
+}
+nav ul li {
+    
+    padding: 12px;
+    background-color: #f8f8f8;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 6px 0 6px ;
+    
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+nav ul li i {
+    font-size: 1.3em;
+    color: grey;
+}
+nav ul li:hover{
+    background-color: #cbcaca;
+    cursor: pointer;
+}
+
 body > * {
     background-color: #f8f8f8;
-    align-self: stretch;
-    border-radius: 20px;
+    align-self: stretch;    
     padding: 12px;
+    border-radius: 20px;
 }
 header { 
     grid-area: header;
@@ -35,6 +80,10 @@ header {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: purple;
+
+    color: white;
+    min-height: 30vh;
 }
 
 header h1{
@@ -45,6 +94,10 @@ section {
     grid-area: section;
     display: flex;
     flex-direction: column;
+
+    padding: 24px;
+
+    background-color: transparent;
 }
 canvas {
     position: absolute;
@@ -94,14 +147,45 @@ aside {
 }
 
 footer{ 
+    min-height: 40vh;
     grid-area: footer;
     display: grid;
+    grid-gap: 12px;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-columns: minmax(400px, auto);
-    height: 500px;
+    grid-template-rows: minmax(100px, auto);
 
-    margin-bottom: 24px;
+    background-color: #333;
+    color: #fff;
+    
+    grid-template-areas:  
+        'mapa mapa mapa mapa'
+        'about contact link help'
+        'dir dir dir dir'
+    ;
+
 }
+
+footer > *{
+    padding: 12px;
+    width: 80%;
+    margin: 0 auto;
+}
+
+footer h1 {
+    margin-bottom: 0;
+}
+
+footer ul {
+    padding: 0;
+}
+footer ul li {
+    list-style: none;
+    margin-bottom: 12px;
+}
+.mapa { grid-area: mapa;}
+.about { grid-area: about;}
+.help { grid-area: help;}
+.dir { grid-area: dir;}
 
 button {
     min-width: 90%;
