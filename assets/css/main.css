@@ -228,3 +228,12 @@ h1, h2, h3, h4 { font-family: 'Alata', sans-serif; }
 p, a, b, ul, li, small, button { font-family: 'Open Sans', sans-serif; }
 
 
+
+input[type = "text"]{
+    min-width: 400px;    
+    padding: 12px 24px 12px 24px;
+    background-color: #dedede;
+    border: none;
+    border-radius: 5px;
+    margin: 12px 24px 12px 24px;
+}
