@@ -9,7 +9,7 @@ app.use(express.urlencoded({ extended: false}))
 
 const user = []
 
-app.get('/register', (req, res)=>{
+app.get('/', (req, res)=>{
     res.sendFile(__dirname + '/views/register.html')
 })
 
@@ -21,7 +21,7 @@ app.post('/register', (req, res)=>{
     
 })
 
-app.get('/', (req, res) =>{
+app.get('/app', (req, res) =>{
     res.sendFile(__dirname + '/views/index.html')
 })
 app.listen(8080, ()=>{
